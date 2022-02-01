@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Fragment, useEffect, useState, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../Footer/footer";
 import Header from "../Header/header";
 import pageHeaderImage from "../../assets/images/backgrounds/login-bg.jpg";
@@ -7,7 +7,9 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 const Login = () => {
 	const location = useLocation();
+	const navigate = useNavigate();
 	const [defaultActiveTab, setDefaultActiveTab] = useState("signin");
+	const [signupMessage, setSignupMessage] = useState("");
 	useEffect(() => {
 		if (location.pathname === "/login") {
 			setDefaultActiveTab("signin");
@@ -23,6 +25,41 @@ const Login = () => {
 		}
 	};
 
+	const firstNameRef = useRef("");
+	const lastNameRef = useRef("");
+	const registerEmailRef = useRef("");
+	const registerPasswordRef = useRef("");
+
+	let formIsValid = true;
+	/* if(nameIsValid && lastNameIsValid && emailIsValid){
+		formIsValid =true;
+	} */
+	const formSubmissionHandler = async (event) => {
+		event.preventDefault();
+		if (!formIsValid) {
+			return;
+		}
+		const data = {
+			first_name: firstNameRef.current.value,
+			last_name: lastNameRef.current.value,
+			email: registerEmailRef.current.value,
+			password: registerPasswordRef.current.value,
+		};
+		await fetch('http://localhost:4000/v1/users/signup',{
+			method:"POST",
+			body:JSON.stringify(data),
+			headers:{
+				'Content-Type': 'application/json'
+			}
+		}).then(response => response.json())
+		.then(data => {
+			if(data.err){
+				setSignupMessage(data.message)
+			}else{
+				navigate('/');
+			}
+		});
+	};
 	return (
 		<Fragment>
 			<Header />
@@ -125,7 +162,34 @@ const Login = () => {
 											role="tabpanel"
 											aria-labelledby="register-tab-2"
 										>
-											<form action="#">
+											<p>{signupMessage}</p>
+											<form action="#" onSubmit={formSubmissionHandler}>
+												<div className="form-group">
+													<label htmlFor="register-first-name">
+														First Name *
+													</label>
+													<input
+														type="text"
+														className="form-control"
+														id="register-first-name"
+														name="first_name"
+														ref={firstNameRef}
+														required
+													/>
+												</div>
+												<div className="form-group">
+													<label htmlFor="register-last-name">
+														Last Name *
+													</label>
+													<input
+														type="text"
+														className="form-control"
+														id="register-last-name"
+														name="last_name"
+														ref={lastNameRef}
+														required
+													/>
+												</div>
 												<div className="form-group">
 													<label htmlFor="register-email-2">
 														Your email address *
@@ -134,7 +198,8 @@ const Login = () => {
 														type="email"
 														className="form-control"
 														id="register-email-2"
-														name="register-email"
+														name="register_email"
+														ref={registerEmailRef}
 														required
 													/>
 												</div>
@@ -147,7 +212,8 @@ const Login = () => {
 														type="password"
 														className="form-control"
 														id="register-password-2"
-														name="register-password"
+														name="register_password"
+														ref={registerPasswordRef}
 														required
 													/>
 												</div>
@@ -160,21 +226,6 @@ const Login = () => {
 														<span>SIGN UP</span>
 														<i className="icon-long-arrow-right"></i>
 													</button>
-
-													<div className="custom-control custom-checkbox">
-														<input
-															type="checkbox"
-															className="custom-control-input"
-															id="register-policy-2"
-															required
-														/>
-														<label
-															className="custom-control-label"
-															htmlFor="register-policy-2"
-														>
-															I agree to the <a href="#!">privacy policy</a> *
-														</label>
-													</div>
 												</div>
 											</form>
 										</div>
