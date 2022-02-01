@@ -1,0 +1,40 @@
+
+.img-wrapper {
+	overflow: hidden;
+}
+
+img.hover-zoom {
+	transition: all 0.3s ease 0s;
+	width: 100%;
+}
+img.hover-zoom:hover {
+	-moz-transform: scale(1.25);
+	-webkit-transform: scale(1.25);
+	-o-transform: scale(1.25);
+	-ms-transform: scale(1.25);
+	transform: scale(1.25);
+}
+
+.minus,
+.plus {
+	width: 20px;
+	height: 20px;
+	background: #f2f2f2;
+	/* border-radius: 4px; */
+	padding: 6px 12px 7px 12px;
+	border: 1px solid #ddd;
+	vertical-align: middle;
+	text-align: center;
+}
+span {
+	cursor: pointer;
+}
+.cart-qty {
+	height: 34px;
+	width: 100px;
+	text-align: center;
+	font-size: 26px;
+	border: 1px solid #ddd;
+	display: inline-block;
+	vertical-align: middle;
+}
