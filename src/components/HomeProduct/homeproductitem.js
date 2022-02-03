@@ -1,12 +1,7 @@
-import { useState } from 'react';
+import React from 'react';
 import { EqualHeightElement } from 'react-equal-height';
 import { Link } from 'react-router-dom';
-const HomeProductItem = ({onLoadImage,product}) => {
-    const [loadImage, setLoadImage] = useState(false);
-	const changeItem = () => {
-		setLoadImage(true);
-		onLoadImage(true);
-	}
+const HomeProductItem = ({product}) => {
 	return (
 		<div className={"product-item col-6 col-md-4 col-lg-3 "+product.category} key={product.id}>
 			<EqualHeightElement name="Name"> 
@@ -17,7 +12,6 @@ const HomeProductItem = ({onLoadImage,product}) => {
 								src={product.image}
 								alt="Product"
 								className="product-image"
-								onLoad={changeItem}
 								width="277px"
 								height="277px"
 							/>

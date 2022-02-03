@@ -3,11 +3,14 @@ import Header from "../Header/header";
 import HomeProduct from "../HomeProduct/homeproduct";
 import Slider from "../Slider/slider";
 import Footer from "../Footer/footer";
+import { useLocation } from "react-router-dom";
+import FlashMessage from 'react-flash-message'
 const Home = () => {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const { state } = useLocation();
 
 	const fetchProductsHandler = useCallback(async () => {
 		setIsLoading(true);
@@ -71,7 +74,7 @@ const Home = () => {
 	useEffect(() => {
 		fetchCategoriesHandler();
 		fetchProductsHandler();
-	}, []);
+	}, [fetchCategoriesHandler,fetchProductsHandler]);
 
     let content = <p>Found no products.</p>;
 
@@ -91,6 +94,9 @@ const Home = () => {
 		<Fragment>
 			<Header />
 			<main className="main">
+				<FlashMessage duration={5000}>
+					<strong>{state}</strong>
+				</FlashMessage>
 				<Slider />
 				{content}
 			</main>

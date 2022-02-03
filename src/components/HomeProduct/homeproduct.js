@@ -1,23 +1,18 @@
 import { Fragment, useState } from "react";
-import { EqualHeight, EqualHeightElement } from "react-equal-height";
+import { EqualHeight } from "react-equal-height";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import HomeProductItem from "./homeproductitem";
 const HomeProduct = (props) => {
-	const [loadImage, setLoadImage] = useState(false);
 	const [getPrice, setGetPrice] = useState({ min: 3, max: 7 });
-
 	const [selectedCategory, setSelectedCategory] = useState("*");
 	const handleClick = (category) => setSelectedCategory(category);
-
 
 	const changeInputRange = (value) => {
 		setGetPrice({ min: value.min, max: value.max });
 	};
 	const selectSort = () => {};
-	const changeItem = () => {
-		setLoadImage(true);
-	};
+	
 	return (
 		<Fragment>
 			<div className="container">
@@ -46,7 +41,7 @@ const HomeProduct = (props) => {
 				</div>
 
 				<div className="widget-filter-area" id="product-filter-area">
-					<a href="#" className="widget-filter-clear">
+					<a href="#!" className="widget-filter-clear">
 						Clean All
 					</a>
 
@@ -299,7 +294,7 @@ const HomeProduct = (props) => {
 					 <EqualHeight>
 						{props.products.filter(product => selectedCategory==="*" || product.category===selectedCategory).map((product) => (
 							
-							<HomeProductItem onLoadImage={changeItem} product={product} key={product.id} />
+							<HomeProductItem product={product} key={product.id} />
 							
 						))}
 					 </EqualHeight> 

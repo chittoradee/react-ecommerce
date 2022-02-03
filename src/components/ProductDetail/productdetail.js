@@ -14,13 +14,9 @@ import { Link, useParams } from "react-router-dom";
 const ProductDetail = () => {
 	let [count, setCount] = useState(1);
 	const [product, setProduct] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(null);
 	const params = useParams();
 	const productId = params.id;
 	const fetchProductHandler = useCallback(async (productId) => {
-		setIsLoading(true);
-		setError(null);
 		try {
 			const response = await fetch(
 				`https://fakestoreapi.com/products/${productId}`
@@ -42,9 +38,8 @@ const ProductDetail = () => {
 			};
 			setProduct(loadedProduct);
 		} catch (error) {
-			setError(error.message);
+			
 		}
-		setIsLoading(false);
 	}, []);
 
 	useEffect(() => {

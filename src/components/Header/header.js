@@ -2,7 +2,18 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/demos/demo-11/logo.png";
 import product1 from "../../assets/images/products/cart/product-1.jpg";
 import product2 from "../../assets/images/products/cart/product-2.jpg";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 const Header = () => {
+	const isAuth = useSelector((state) => state.auth.isAuthenticated);
+	const userdata = useSelector((state) => state.auth.userdata);
+	
+	const dispatch = useDispatch();
+	const logoutHandler = (event) => {
+		event.preventDefault();
+		dispatch(authActions.logout());
+	};
 	return (
 		<header className="header header-7">
 			<div className="header-middle sticky-header">
@@ -30,16 +41,26 @@ const Header = () => {
 										Products
 									</Link>
 								</li>
+								{!isAuth && (
 								<li>
 									<Link to={"/login"} className="sf-with-ul">
 										Login
 									</Link>
 								</li>
+								)}
+								{!isAuth && (
 								<li>
 									<Link to={"/register"} className="sf-with-ul">
 										Register
 									</Link>
 								</li>
+								)}
+								{isAuth && (
+								<li>
+									<b>{userdata.first_name} {userdata.last_name}</b>
+									<button onClick={logoutHandler}>Logout</button>
+								</li>
+								)}
 							</ul>
 						</nav>
 
