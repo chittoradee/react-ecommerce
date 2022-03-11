@@ -786,6 +786,7 @@ blockquote.text-white cite span {
     visibility: hidden;
     opacity: 0;
     transition: all 0.25s;
+    top:100%;
 }
 .cart-dropdown .dropdown-menu:before,
 .compare-dropdown .dropdown-menu:before {
@@ -930,6 +931,7 @@ blockquote.text-white cite span {
     border: none;
     border-bottom: 1px solid #ebebeb;
     box-shadow: none !important;
+    max-height: 100px;
 }
 .cart-dropdown .product-image-container {
     position: relative;
@@ -3413,7 +3415,7 @@ p {
 }
 .header-7 .cart-dropdown .dropdown-menu,
 .header-7 .compare-dropdown .dropdown-menu {
-    margin-top: 0;
+    margin-top: 0px;
 }
 .header-7 .logo {
     margin-top: 2.5rem;
@@ -5567,12 +5569,12 @@ p {
     font-size: 1.4rem;
     line-height: 1.5;
     letter-spacing: -0.01em;
-    padding: 0.45rem 1rem;
+    padding: 1.4rem 0;
     border-radius: 0;
-    text-align: center;
+   /*  text-align: center; */
     text-transform: uppercase;
     border: none;
-    border-bottom: 0.1rem solid transparent;
+    border-bottom: 0.1rem solid #ebebeb;
     background-color: transparent;
     transition: all 0.35s ease;
 }
@@ -5589,8 +5591,8 @@ p {
 .nav.nav-pills .nav-item.show .nav-link,
 .nav.nav-pills .nav-item .nav-link.active {
     color: #c96;
-    border-color: #d7d7d7;
-    border-bottom-color: #c96;
+    /* border-color: #d7d7d7;
+    border-bottom-color: #c96; */
 }
 .nav-pills + .tab-content .tab-pane {
     padding: 1.4rem 0;
@@ -12887,6 +12889,7 @@ button:focus {
 }
 .form-tab .nav.nav-pills .nav-link.active {
     color: inherit;
+    border-bottom-color: #ccc;
 }
 .form-tab .nav-fill .nav-item {
     flex: 1 1 0;
@@ -16406,4 +16409,7 @@ button:focus {
     top: 0.6rem;
     width: 1.6rem;
     height: 1.6rem;
+}
+.error{
+    color:red;
 }

@@ -8,6 +8,8 @@ import Tab from "react-bootstrap/Tab";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -37,7 +39,7 @@ const Login = () => {
 			email: values.register_email,
 			password: values.register_password,
 		};
-		await fetch("http://localhost:4000/v1/users/signup", {
+		await fetch(`${process.env.REACT_APP_API_URL}users/signup`, {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
@@ -51,6 +53,15 @@ const Login = () => {
 				} else {
 					dispatch(authActions.login(data.data));
 					navigate("/", { state: "Registration successful." });
+					toast("Registration successful.", {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
 				}
 			});
 		setSubmitting(false);
@@ -81,7 +92,7 @@ const Login = () => {
 			email: values.login_email,
 			password: values.login_password,
 		};
-		await fetch("http://localhost:4000/v1/users/login", {
+		await fetch(`${process.env.REACT_APP_API_URL}users/login`, {
 			method: "POST",
 			body: JSON.stringify(data),
 			headers: {
@@ -95,6 +106,15 @@ const Login = () => {
 				} else {
 					dispatch(authActions.login(data.data));
 					navigate("/", { state: "Login successful." });
+					toast("Login successful.", {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
 				}
 			});
 		setSubmitting(false);
@@ -153,7 +173,7 @@ const Login = () => {
 											role="tabpanel"
 											aria-labelledby="signin-tab-2"
 										>
-											<p>{loginMessage}</p>
+											<p className="error">{loginMessage}</p>
 											<Formik
 												initialValues={{
 													login_email: "",
@@ -192,7 +212,7 @@ const Login = () => {
 															/>
 															{errors.login_email &&
 																touched.login_email &&
-																errors.login_email}
+																<span className="error">{errors.login_email}</span>}
 														</div>
 
 														<div className="form-group">
@@ -210,7 +230,7 @@ const Login = () => {
 															/>
 															{errors.login_password &&
 																touched.login_password &&
-																errors.login_password}
+																<span className="error">{errors.login_password}</span>}
 														</div>
 
 														<div className="form-footer">
@@ -237,9 +257,9 @@ const Login = () => {
 																</label>
 															</div>
 
-															<a href="#!" className="forgot-link">
+															<Link to={"/forgot-password"} className="forgot-link">
 																Forgot Your Password?
-															</a>
+															</Link>
 														</div>
 													</form>
 												)}
@@ -294,7 +314,7 @@ const Login = () => {
 															/>
 															{errors.first_name &&
 																touched.first_name &&
-																errors.first_name}
+																<span className="error">{errors.first_name}</span>}
 														</div>
 
 														<div className="form-group">
@@ -312,7 +332,7 @@ const Login = () => {
 															/>
 															{errors.last_name &&
 																touched.last_name &&
-																errors.last_name}
+																<span className="error">{errors.last_name}</span>}
 														</div>
 														<div className="form-group">
 															<label htmlFor="register-email-2">
@@ -329,7 +349,7 @@ const Login = () => {
 															/>
 															{errors.register_email &&
 																touched.register_email &&
-																errors.register_email}
+																<span className="error">{errors.register_email}</span>}
 														</div>
 
 														<div className="form-group">
@@ -347,9 +367,8 @@ const Login = () => {
 															/>
 															{errors.register_password &&
 																touched.register_password &&
-																errors.register_password}
+																<span className="error">{errors.register_password}</span>}
 														</div>
-														{isSubmitting}
 														<div className="form-footer">
 															<button
 																type="submit"

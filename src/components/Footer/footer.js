@@ -4,7 +4,7 @@ const Footer = () => {
             <div className="footer-bottom">
                 <div className="container">
                     <p className="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
-                    <ul className="footer-menu">
+                    {/* <ul className="footer-menu">
                         <li><a href="#!">Terms Of Use</a></li>
                         <li><a href="#!">Privacy Policy</a></li>
                     </ul>
@@ -14,7 +14,7 @@ const Footer = () => {
                         <a href="#!" className="social-icon social-instagram" title="Instagram" target="_blank"><i className="icon-instagram"></i></a>
                         <a href="#!" className="social-icon social-youtube" title="Youtube" target="_blank"><i className="icon-youtube"></i></a>
                         <a href="#!" className="social-icon social-pinterest" title="Pinterest" target="_blank"><i className="icon-pinterest"></i></a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </footer>

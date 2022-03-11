@@ -3,38 +3,38 @@ import Header from "../Header/header";
 import HomeProduct from "../HomeProduct/homeproduct";
 import Slider from "../Slider/slider";
 import Footer from "../Footer/footer";
-import { useLocation } from "react-router-dom";
-import FlashMessage from 'react-flash-message'
 const Home = () => {
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(null);
-	const { state } = useLocation();
 
 	const fetchProductsHandler = useCallback(async () => {
 		setIsLoading(true);
 		setError(null);
 		try {
-			const response = await fetch("http://fakestoreapi.com/products");
+			const response = await fetch(`${process.env.REACT_APP_API_URL}product/list`);
 			if (!response.ok) {
 				throw new Error("Something went wrong!");
 			}
 			const data = await response.json();
 			const loadedProducts = [];
             let slug  = ''
-			for (const key in data) {
-                slug = data[key].category.toLowerCase()
+			var products = data.data;
+			for (const key in products) {
+             	slug = products[key].category.toLowerCase()
                 .replace(/ /g, '-')
-                .replace(/[^\w-]+/g, '')
+                .replace(/[^\w-]+/g, '') 
+				var image = products[key].image;
+				image = image.replace(/\\/g, "/");
 				loadedProducts.push({
-					id: data[key].id,
-					title: data[key].title,
+					id: products[key]._id,
+					title: products[key].title,
 					category: slug,
-					description: data[key].description,
-					image: data[key].image,
-					price: data[key].price,
-					rating: data[key].rating.rate,
+					description: products[key].description,
+					image: image,
+					price: products[key].price,
+					rating: products[key].rating,
 				});
 			}
 			setProducts(loadedProducts);
@@ -48,20 +48,17 @@ const Home = () => {
 		setIsLoading(true);
 		setError(null);
 		try {
-			const response = await fetch("https://fakestoreapi.com/products/categories");
+			const response = await fetch(`${process.env.REACT_APP_API_URL}category/list`);
 			if (!response.ok) {
 				throw new Error("Something went wrong!");
 			}
 			const data = await response.json();
 			const loadedCategories = [];
-			let slug  = ''
-            for (const key in data) {
-                slug = data[key].toLowerCase()
-                .replace(/ /g, '-')
-                .replace(/[^\w-]+/g, '')
+            for (const key in data.data) {
 				loadedCategories.push({
-					id: key,
-					title: slug
+					id: data.data[key]._id,
+					slug: data.data[key].slug,
+					title: data.data[key].name
 				});
 			}
 			setCategories(loadedCategories);
@@ -92,15 +89,13 @@ const Home = () => {
 
 	return (
 		<Fragment>
-			<Header />
-			<main className="main">
-				<FlashMessage duration={5000}>
-					<strong>{state}</strong>
-				</FlashMessage>
-				<Slider />
-				{content}
-			</main>
-			<Footer />
+			
+				<Header />
+				<main className="main">
+					<Slider />
+					{content}
+				</main>
+				<Footer />
 		</Fragment>
 	);
 };

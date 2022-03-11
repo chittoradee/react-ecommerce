@@ -1,10 +1,44 @@
-import React from 'react';
-import { EqualHeightElement } from 'react-equal-height';
-import { Link } from 'react-router-dom';
-const HomeProductItem = ({product}) => {
+import React, { useContext } from "react";
+import { EqualHeightElement } from "react-equal-height";
+import { Link } from "react-router-dom";
+import CartContext from '../../store/cart-context';
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const HomeProductItem = ({ product }) => {
+	const isAuth = useSelector((state) => state.auth.isAuthenticated);
+	const userdata = useSelector((state) => state.auth.userdata);
+	const userToken = useSelector((state) => state.auth.token);
+	const cartCtx = useContext(CartContext);
+    const addToCartHandler = () => {
+		if(!isAuth){
+			alert("Please login to add item into cart.")
+			return false;
+		}
+        cartCtx.addItem({
+            id:product.id,
+            name:product.title,
+            amount:product.price,
+            price:product.price,
+            user_id:userdata._id,
+			token:userToken
+        });
+		toast("Item added to cart.", {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+    };
 	return (
-		<div className={"product-item col-6 col-md-4 col-lg-3 "+product.category} key={product.id}>
-			<EqualHeightElement name="Name"> 
+		<div
+			className={"product-item col-6 col-md-4 col-lg-3 " + product.category}
+			key={product.id}
+		>
+			<EqualHeightElement name="Name">
 				<div className="product product-4">
 					<figure className="product-media">
 						<Link to={`product-detail/${product.id}`}>
@@ -24,31 +58,29 @@ const HomeProductItem = ({product}) => {
 								<span>add to wishlist</span>
 							</a>
 						</div>
-
 						<div className="product-action">
-							<a
-								href="/product-detail"
+							<Link
+								to={`product-detail/${product.id}`}
 								className="btn-product btn-quickview"
-								title="Quick view"
 							>
 								<span>quick view</span>
-							</a>
+							</Link>
 						</div>
 					</figure>
 
 					<div className="product-body">
 						<h3 className="product-title">
-							<a href="/product-detail">{product.title}</a>
+							<Link to={`product-detail/${product.id}`}>{product.title}</Link>
 						</h3>
 						<div className="product-action">
-							<a href="#!" className="btn-product btn-cart">
+							<a href="#!" className="btn-product btn-cart" onClick={addToCartHandler}>
 								<span>add to cart</span>
 								<i className="icon-long-arrow-right"></i>
 							</a>
 						</div>
 					</div>
 				</div>
-			 </EqualHeightElement>
+			</EqualHeightElement>
 		</div>
 	);
 };

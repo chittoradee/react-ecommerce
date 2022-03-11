@@ -10,6 +10,10 @@ const authSlice = createSlice({
 			state.token = action.payload.token;
 			state.userdata = action.payload.result;
 		},
+		updateProfile(state,action) {
+			state.isAuthenticated = true;
+			state.userdata = action.payload;
+		},
 		logout(state) {
 			state.isAuthenticated = false;
 			state.token = '';

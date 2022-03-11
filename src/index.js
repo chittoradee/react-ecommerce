@@ -6,10 +6,14 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./store/index";
+import CartProvider from "./store/CartProvider";
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
-			<App />
+		<CartProvider>
+		<App />
+		</CartProvider>
+			
 		</BrowserRouter>
 	</Provider>,
 	document.getElementById("root")

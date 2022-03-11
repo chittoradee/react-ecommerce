@@ -13,7 +13,7 @@ const Slider = () => {
                         <div className="container intro-content">
                             <h3 className="intro-subtitle text-primary">SEASONAL PICKS</h3>
                             <h1 className="intro-title">Get All <br />The Good Stuff</h1>
-                            <a href="category.html" className="btn btn-outline-primary-2">
+                            <a href="#!" className="btn btn-outline-primary-2">
                                 <span>DISCOVER MORE</span>
                                 <i className="icon-long-arrow-right"></i>
                             </a>
@@ -23,7 +23,7 @@ const Slider = () => {
                         <div className="container intro-content">
                             <h3 className="intro-subtitle text-primary">all at 50% off</h3>
                             <h1 className="intro-title text-white">The Most Beautiful <br />Novelties In Our Shop</h1>
-                            <a href="category.html" className="btn btn-outline-primary-2 min-width-sm">
+                            <a href="#!" className="btn btn-outline-primary-2 min-width-sm">
                                 <span>SHOP NOW</span>
                                 <i className="icon-long-arrow-right"></i>
                             </a>
@@ -32,7 +32,7 @@ const Slider = () => {
                         <div className="container intro-content">
                             <h3 className="intro-subtitle text-primary">all at 50% off</h3>
                             <h1 className="intro-title text-white">The Most Beautiful <br />Novelties In Our Shop</h1>
-                            <a href="category.html" className="btn btn-outline-primary-2 min-width-sm">
+                            <a href="#!" className="btn btn-outline-primary-2 min-width-sm">
                                 <span>SHOP NOW</span>
                                 <i className="icon-long-arrow-right"></i>
                             </a>
@@ -41,7 +41,7 @@ const Slider = () => {
                         <div className="container intro-content">
                             <h3 className="intro-subtitle text-primary">all at 50% off</h3>
                             <h1 className="intro-title text-white">The Most Beautiful <br />Novelties In Our Shop</h1>
-                            <a href="category.html" className="btn btn-outline-primary-2 min-width-sm">
+                            <a href="#!" className="btn btn-outline-primary-2 min-width-sm">
                                 <span>SHOP NOW</span>
                                 <i className="icon-long-arrow-right"></i>
                             </a>
@@ -62,7 +62,7 @@ const Slider = () => {
                         <div className="container intro-content">
                             <h3 className="intro-subtitle text-primary">SEASONAL PICKS</h3>
                             <h1 className="intro-title">Get All <br />The Good Stuff</h1>
-                            <a href="category.html" className="btn btn-outline-primary-2">
+                            <a href="#!" className="btn btn-outline-primary-2">
                                 <span>DISCOVER MORE</span>
                                 <i className="icon-long-arrow-right"></i>
                             </a>
@@ -73,7 +73,7 @@ const Slider = () => {
                         <div className="container intro-content">
                             <h3 className="intro-subtitle text-primary">all at 50% off</h3>
                             <h1 className="intro-title text-white">The Most Beautiful <br />Novelties In Our Shop</h1>
-                            <a href="category.html" className="btn btn-outline-primary-2 min-width-sm">
+                            <a href="#!" className="btn btn-outline-primary-2 min-width-sm">
                                 <span>SHOP NOW</span>
                                 <i className="icon-long-arrow-right"></i>
                             </a>

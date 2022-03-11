@@ -1,27 +1,27 @@
 import { Fragment, useState } from "react";
 import { EqualHeight } from "react-equal-height";
-import InputRange from "react-input-range";
+/* import InputRange from "react-input-range"; */
 import "react-input-range/lib/css/index.css";
 import HomeProductItem from "./homeproductitem";
 const HomeProduct = (props) => {
-	const [getPrice, setGetPrice] = useState({ min: 3, max: 7 });
+	/* const [getPrice, setGetPrice] = useState({ min: 3, max: 7 }); */
 	const [selectedCategory, setSelectedCategory] = useState("*");
 	const handleClick = (category) => setSelectedCategory(category);
 
-	const changeInputRange = (value) => {
+	/* const changeInputRange = (value) => {
 		setGetPrice({ min: value.min, max: value.max });
 	};
-	const selectSort = () => {};
+	const selectSort = () => {}; */
 	
 	return (
 		<Fragment>
 			<div className="container">
 				<div className="toolbox toolbox-filter">
-					<div className="toolbox-left">
+					{/* <div className="toolbox-left">
 						<a href="#!" className="filter-toggler">
 							Filters
 						</a>
-					</div>
+					</div> */}
 					<div className="toolbox-right">
 						<ul className="nav-filter product-filter">
 							<li className={selectedCategory==="*" ? 'active' : ''}>
@@ -30,8 +30,8 @@ const HomeProduct = (props) => {
 								</a>
 							</li>
 							{props.categories.map((category) => (
-							<li key={category.id} className={selectedCategory===category.title ? 'active' : ''}>
-								<a href="#!" onClick={() => handleClick(category.title)} data-filter={"."+category.title}>
+							<li key={category.id} className={selectedCategory===category.slug ? 'active' : ''}>
+								<a href="#!" onClick={() => handleClick(category.slug)} data-filter={"."+category.slug}>
 									{category.title}
 								</a>
 							</li>
@@ -40,7 +40,7 @@ const HomeProduct = (props) => {
 					</div>
 				</div>
 
-				<div className="widget-filter-area" id="product-filter-area">
+				{/* <div className="widget-filter-area" id="product-filter-area">
 					<a href="#!" className="widget-filter-clear">
 						Clean All
 					</a>
@@ -275,7 +275,6 @@ const HomeProduct = (props) => {
 											<span id="filter-price-range"></span>
 										</div>
 
-										{/* <div id="price-slider"></div> */}
 										<InputRange
 											maxValue={20}
 											minValue={0}
@@ -288,7 +287,7 @@ const HomeProduct = (props) => {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> */}
 								
 				<div className="products-container" data-layout="fitRows">
 					 <EqualHeight>
@@ -302,10 +301,10 @@ const HomeProduct = (props) => {
 			</div>
 
 			<div className="more-container text-center mt-0 mb-7">
-				<a href="category.html" className="btn btn-outline-dark-3 btn-more">
+				{/* <a href="category.html" className="btn btn-outline-dark-3 btn-more">
 					<span>more products</span>
 					<i className="la la-refresh"></i>
-				</a>
+				</a> */}
 			</div>
 		</Fragment>
 	);

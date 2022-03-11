@@ -12,7 +12,7 @@ const authMiddleware = (store) => (next) => (action) => {
 };
 const store = configureStore({
 	reducer: {
-		auth: authSlice,
+		auth: authSlice
 	},
 	preloadedState: loadState(),
 	middleware: (getDefaultMiddleware) =>

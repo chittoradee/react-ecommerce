@@ -1,40 +1,44 @@
-import React, { Fragment, useState, useCallback, useEffect } from "react";
+import React, { Fragment, useState, useCallback, useEffect, useContext } from "react";
 import Header from "../Header/header";
 import Footer from "../Footer/footer";
-import productImage1Thumb from "../../assets/images/products/single/1-thumb.jpg";
-import productImage2Thumb from "../../assets/images/products/single/2-thumb.jpg";
+/*import productImage1Thumb from "../../assets/images/products/single/1-thumb.jpg";
+ import productImage2Thumb from "../../assets/images/products/single/2-thumb.jpg"; 
+ import productImage2Bg from "../../assets/images/products/single/2-big.jpg";*/
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import ImageHoverZoom from "./imagehoverzoom";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import classes from "./productdetail.module.css";
+/* import classes from "./productdetail.module.css"; */
 import { Link, useParams } from "react-router-dom";
+import CartContext from '../../store/cart-context';
+import { useSelector } from "react-redux";
 const ProductDetail = () => {
-	let [count, setCount] = useState(1);
+	/* let [count, setCount] = useState(1); */
 	const [product, setProduct] = useState([]);
 	const params = useParams();
 	const productId = params.id;
 	const fetchProductHandler = useCallback(async (productId) => {
 		try {
 			const response = await fetch(
-				`https://fakestoreapi.com/products/${productId}`
+				`${process.env.REACT_APP_API_URL}product/detail/${productId}`
 			);
 			if (!response.ok) {
 				throw new Error("Something went wrong!");
 			}
-			const data = await response.json();
-			const rating = Math.ceil(data.rating.rate / 5);
+			const result = await response.json();
+			const data = result.data;
+			const rating = Math.ceil(data.rating / 5);
 			const loadedProduct = {
-				id: data.id,	
+				id: data._id,
 				title: data.title,
 				category: data.category,
 				description: data.description,
 				image: data.image,
 				price: data.price,
 				rating: rating,
-				reviews: data.rating.count,
+				reviews: 259,
 			};
 			setProduct(loadedProduct);
 		} catch (error) {
@@ -46,7 +50,7 @@ const ProductDetail = () => {
 		fetchProductHandler(productId);
 	}, [fetchProductHandler, productId]);
 
-	const incrementCount = () => {
+	/* const incrementCount = () => {
 		count = count + 1;
 		setCount(count);
 	};
@@ -55,7 +59,24 @@ const ProductDetail = () => {
 		count = count <= 1 ? 1 : count;
 		setCount(count);
 	};
-	const getQuantity = () => {};
+	const getQuantity = () => {}; */
+
+	const isAuth = useSelector((state) => state.auth.isAuthenticated);
+	const userdata = useSelector((state) => state.auth.userdata);
+	const cartCtx = useContext(CartContext);
+    const addToCartHandler = () => {
+		if(!isAuth){
+			alert("Please login to add item into cart.")
+			return false;
+		}
+        cartCtx.addItem({
+            id:product.id,
+            name:product.title,
+            amount:product.price,
+            price:product.price,
+            user_id:userdata._id,
+        });
+    };
 	return (
 		<Fragment>
 			<Header />
@@ -74,12 +95,14 @@ const ProductDetail = () => {
 				</nav>
 
 				<div className="page-content">
+					{product && 
 					<div className="container">
 						<div className="product-details-top">
 							<div className="row">
 								<div className="col-md-6">
 									<div className="product-gallery product-gallery-vertical">
-										<div className="row">
+										<div className="row">	
+										{product.image &&
 											<OwlCarousel
 												className="intro-slider owl-carousel owl-simple owl-nav-inside"
 												loop
@@ -88,7 +111,7 @@ const ProductDetail = () => {
 												nav
 												dots={false}
 												responsiveClass={true}
-											>
+											>	
 												<figure className="product-main-image">
 													<ImageHoverZoom imagePath={product.image} />
 												</figure>
@@ -103,6 +126,7 @@ const ProductDetail = () => {
 													<ImageHoverZoom imagePath={productImage4Bg} />
 												</figure> */}
 											</OwlCarousel>
+											}
 										</div>
 									</div>
 								</div>
@@ -132,7 +156,7 @@ const ProductDetail = () => {
 											<p>{product.description}</p>
 										</div>
 
-										<div className="details-filter-row details-row-size">
+										{/* <div className="details-filter-row details-row-size">
 											<label>Color:</label>
 
 											<div className="product-nav product-nav-thumbs">
@@ -185,13 +209,13 @@ const ProductDetail = () => {
 												</span>
 											</div>
 										</div>
-
+ */}
 										<div className="product-details-action">
-											<a href="#!" className="btn-product btn-cart">
+											<a href="#!" className="btn-product btn-cart"  onClick={addToCartHandler}>
 												<span>add to cart</span>
 											</a>
 
-											<div className="details-action-wrapper">
+											{/* <div className="details-action-wrapper">
 												<a
 													href="#!"
 													className="btn-product btn-wishlist"
@@ -199,7 +223,7 @@ const ProductDetail = () => {
 												>
 													<span>Add to Wishlist</span>
 												</a>
-											</div>
+											</div> */}
 										</div>
 
 										<div className="product-details-footer">
@@ -400,6 +424,7 @@ const ProductDetail = () => {
 							</Tabs>
 						</div>
 					</div>
+					}
 				</div>
 			</main>
 			<Footer />
